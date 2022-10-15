@@ -1,239 +1,291 @@
+//"Hamburger menu"
+var navlabel = document.querySelector(".nav-toggle-label");
+
+function NavCross()
+{  
+    navlabel.classList.toggle("nav-cross");
+}
+
+//Scroll Animations
+var about = document.getElementById("about");
+var portfolio = document.getElementById("portfolio");
+var contact = document.getElementById("contact");
+
+var options = {
+    root: null,
+    threshold: 0.5,
+    rootMargin: "10px"
+};
+var observer = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting)
+        {
+            return;
+        }
+        if (entry.target.className == "about")
+        {
+            Highlight("t1");
+        }
+        else if (entry.target.className == "portfolio")
+        {
+            Highlight("t2");
+        }
+        else if (entry.target.className == "contact")
+        {
+            Highlight("t3");
+        }
+    });
+}, options);
+
+observer.observe(about);
+observer.observe(portfolio);
+observer.observe(contact);
+
+
+//Navbar colors
+var id = null;
+var titles = document.getElementsByClassName("t");
+
+function Highlight(id) {
+
+    var navbar = document.getElementById("nav-toggle");
+    navbar.checked = false;
+    for (i = 0; i < titles.length; i++)
+    {
+        titles[i].style.color = "white";
+    }
+    StyleHeader(id);
+    if (navlabel.classList.contains("nav-cross"))
+    {
+        NavCross();
+    }
+}
+
+function StyleHeader(id)
+{
+    var high = document.getElementById(id);
+    var cyan = document.getElementById("navcyan");
+    var magenta = document.getElementById("navmagenta");
+    var yellow = document.getElementById("navyellow");
+
+    var up = .1;
+    var down = 1;
+    var t = 10;
+
+    if (id == "t1")
+    {
+        high.style.color = "rgba(163, 199, 231, 1)";
+
+        clearInterval(id);
+        id = setInterval(Fade, t);
+        function Fade()
+        {
+            if (up >= 1)
+            {
+                clearInterval(id);
+            }
+            else
+            {
+                up += .05;
+                down -= .05;
+                cyan.style.opacity = up;
+                magenta.style.opacity = down;
+                yellow.style.opacity = down;
+            }
+        }
+    }
+    else if (id == "t2")
+    {
+        high.style.color = "rgba(239, 188, 206, 1)";
+
+        clearInterval(id);
+        id = setInterval(Fade, t);
+        function Fade()
+        {
+            if (up >= 1)
+            {
+                clearInterval(id);
+            }
+            else
+            {
+                up += .05;
+                down -= .05;
+                cyan.style.opacity = down;
+                magenta.style.opacity = up;
+                yellow.style.opacity = down;
+            }
+        }
+    }
+    else if (id == "t3")
+    {
+        high.style.color = "rgba(232, 196, 130, 1)";
+
+        clearInterval(id);
+        id = setInterval(Fade, t);
+        function Fade()
+        {
+            if (up >= 1)
+            {
+                clearInterval(id);
+            }
+            else
+            {
+                up += .05;
+                down -= .05;
+                cyan.style.opacity = down;
+                magenta.style.opacity = down;
+                yellow.style.opacity = up;
+            }
+        }
+    }
+}
+
+//Game slides
+var gamesLeft = document.getElementById("arrow-left-games")
+var gamesRight = document.getElementById("arrow-right-games")
+
+var dotsContainer = document.getElementById("dots")
+var dots = []
+var gamesConatiner = document.getElementById("games")
+var games = []
+for(var i=0; i < gamesConatiner.children.length; i++) {
+    var game = gamesConatiner.children[i]
+    games.push(game)
+    var dot = document.createElement("span")
+    dot.innerHTML = "·"
+    dotsContainer.append(dot)
+    dots.push(dot)
+}
+
+
+for(var i=0; i < dotsContainer.children.length; i++) {
+    var dot = dotsContainer.children[i]
+    dots.push(dot)
+}
+
+var slidin = false
+var index = 0
+InitGames()
+
+gamesRight.addEventListener("pointerup", () => {
+    if (slidin) return
+    slidin = true
+    index++
+    if (index > games.length - 1)
+        index = games.length - 1
+    else
+        GameTransitions(games[index])
+})
+gamesLeft.addEventListener("pointerup", () => {
+    if (slidin) return
+    slidin = true
+    index--
+    if (index < 0)
+        index = 0
+    else
+        GameTransitions(games[index])
+})
+
+function InitGames() {
+    games.forEach((game) => {
+        game.style.zIndex = -1
+        game.style.transform = ""
+        game.style.transform += "perspective(900px)"  
+        game.style.transform += "rotateX(60deg)"
+        game.style.transform += "scale(0.7)"
+        game.style.transform += "translate(-50%, -50%)"
+    })
+    dots.forEach((dot) => {
+        dot.style.opacity = .3
+    })
+    games[0].style.zIndex = 1
+    games[0].style.transform = ""
+    games[0].style.transform += "rotate(0deg)"
+    games[0].style.transform += "scale(1)"
+    games[0].style.transform += "translate(-50%, -50%)"
+    dots[0].style.opacity = 1
+}
+
+async function GameTransitions(el) {
+    games.forEach((game) => {
+        if (game != el) {
+            //game.style.zIndex = -1
+            game.style.transform = ""
+            game.style.transform += "perspective(900px)"  
+            game.style.transform += "rotateX(50deg)"
+            game.style.transform += "scale(0.7)"
+            game.style.transform += "translate(-50%, -50%)"
+        }
+    })
+
+    dots.forEach((dot) => {
+        if (dots[index] != dot)
+            dot.style.opacity = .3
+    })
+    dots[index].style.opacity = 1
+
+    await delay(500)
+    games.forEach((game) => {
+        if (game != el) {
+            game.style.zIndex = -1
+        }
+    })
+    el.style.zIndex = 1
+
+    await delay(500)
+    el.style.transform = ""
+    el.style.transform += "rotate(0deg)"
+    el.style.transform += "scale(1)"
+    el.style.transform += "translate(-50%, -50%)"
+    slidin = false
+}
+
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
-function toRadians(deg) {
-    return (deg * Math.PI)/180
-}
 
 //BABYLON JS
-const canvas = document.getElementById("renderCanvas")
-const engine = new BABYLON.Engine(canvas, true)
+var canvas = document.getElementById("renderCanvas")
+var engine = new BABYLON.Engine(canvas, true)
 
-//Stuff to interact with
-let SPS1 = null
-let SPS2 = null
-let mainBody = null
-
-//Variables
-//let selectedParticle = 0
-let directionQ = []
-let speed = 0.01
-let inertia = 0
-const wireframeColor = new BABYLON.Color3(.5, 0, 0)
-const blockColor = new BABYLON.Color3(1, .2, 0)
-
-//Scene
-const scene = createScene()
+var scene = createScene()
 
 function createScene () {
-    const scene = new BABYLON.Scene(engine);
+    var scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
     
-    const camera = new BABYLON.ArcRotateCamera("Camera", toRadians(-90), toRadians(90), 40, BABYLON.Vector3.Zero(), scene);
-    //camera.attachControl(canvas, true);
+    var camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 3, 40, BABYLON.Vector3.Zero(), scene);
+	camera.attachControl(canvas, true);
     
-    const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-	  light.intensity = 0.4;
+    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+	light.intensity = 0.7;
 
-    const mat1 = new BABYLON.StandardMaterial("mat1", scene);
-	  mat1.emissiveColor = wireframeColor
-    mat1.backFaceCulling = false
-    mat1.wireframe = true
-
-    const mat2 = new BABYLON.StandardMaterial("mat2", scene);
-	  mat2.emissiveColor = blockColor
-    mat2.backFaceCulling = false
-    mat2.wireframe = false
-
-    SPS1 = new BABYLON.SolidParticleSystem("SPS1", scene);
-    SPS2 = new BABYLON.SolidParticleSystem("SPS2", scene);
-
-    const box = BABYLON.MeshBuilder.CreateBox("box", {height:1, width: 1.5, depth: 1});
-    const rows = 5
-    const cols = 20
-    SPS1.addShape(box, rows * cols);
-    SPS2.addShape(box, rows * cols);
-    box.dispose();
-
-    const mesh1 = SPS1.buildMesh();
-    const mesh2 = SPS2.buildMesh();
+    var boxx = []
+    var poss = []
+        poss.push(new BABYLON.Vector3(-9, 0, 9))
+    poss.push(new BABYLON.Vector3(-6, 0, 6))
+    poss.push(new BABYLON.Vector3(-3, 0, 3))
+    poss.push(new BABYLON.Vector3(3, 0, -3))
+    poss.push(new BABYLON.Vector3(6, 0, -6))
+    poss.push(new BABYLON.Vector3(9, 0, -9))
     
-    [SPS1, SPS2].forEach(sps => {
-        // initiate particles function
-        sps.initParticles = () => {
-            let xPos = -20
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    const particle = sps.particles[cols * r + c];
-                    particle.position.x = xPos
-                    particle.position.y = 12 - r * 2
-                    particle.position.z = 0
-                    xPos = xPos + 2
-                }
-                xPos = -20
-            }
-        }
-
-        sps.initParticles();
-        sps.setParticles();
+    for (var i=0; i < 6; i++) {
+        var boxlet = BABYLON.MeshBuilder.CreateSphere("box", {diameter:4}, scene)
+        boxx.push(boxlet)
+        boxlet.position = poss[i]
+    }
+    
+    var actionManager = new BABYLON.ActionManager(scene)
+    boxx.forEach((box) => {
+        box.actionManager = actionManager
+        box.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+            trigger : BABYLON.ActionManager.OnPickTrigger
+        }))
     })
+
+
     
-
-    
-
-    mesh1.material = mat1
-    mesh2.material = mat2
-    
-    
-
-
-    var xR = 1; // bevel radius x directionQ
-    var yR = 1; // bevel radius y directionQ
-    var width = 6;
-    var height = 2;
-    var depth = 1;
-
-    var w = width / 2;
-    var h = height / 2;
-
-    var n = 20; //increments around circle
-    var a; //angle
-    
-    //Array of paths to construct extrusion
-	  var mainShape = [ ];
-
-    mainShape.push(new BABYLON.Vector3(w, h - yR, 0));
-	
-    for (var i = 0; i < n; i++)	{
-        a = i * Math.PI / (2 * n);
-        mainShape.push(new BABYLON.Vector3(w - xR * (1 - Math.cos(a)), h - yR * (1 - Math.sin(a)), 0 ))
-    }
-
-    mainShape.push(new BABYLON.Vector3(w - xR, h, 0));
-    mainShape.push(new BABYLON.Vector3(-w + xR, h, 0));
-    
-    for (var i = 0; i < n; i++)	{
-        a = Math.PI / 2 + i * Math.PI / (2 * n);
-        mainShape.push(new BABYLON.Vector3(-w + xR * ( 1 + Math.cos(a)), h - yR * (1 - Math.sin(a)), 0 ))
-    }
-
-	  mainShape.push(new BABYLON.Vector3(-w, h - yR, 0));
-	  mainShape.push(new BABYLON.Vector3(-w, -h + yR, 0));
-
-    for (var i = 0; i < n; i++)	{
-        a = Math.PI + i * Math.PI / (2 * n);
-        mainShape.push(new BABYLON.Vector3(-w + xR * ( 1 + Math.cos(a)), -h + yR * (1 + Math.sin(a)), 0 ))
-    }
-
-	  mainShape.push(new BABYLON.Vector3(-w + xR, -h, 0));
-	  mainShape.push(new BABYLON.Vector3(w - xR, -h, 0));
-
-    for (var i = 0; i < n; i++)	{
-        a = 3 * Math.PI / 2 + i * Math.PI / (2 * n);
-        mainShape.push(new BABYLON.Vector3(w - xR * ( 1 - Math.cos(a)), -h + yR * (1 + Math.sin(a)), 0 ))
-    }
-
-	  mainShape.push(new BABYLON.Vector3(w, -h + yR, 0));
-
-	  mainShape.push(mainShape[0]);
-	
-    var mainPath = [
-      new BABYLON.Vector3(0, 0, -depth / 2 + xR),
-      new BABYLON.Vector3(0, 0, depth / 2 - xR)
-    ];
-	
-    mainBody = BABYLON.MeshBuilder.ExtrudeShape("extruded1", {shape: mainShape, path: mainPath, sideOrientation: BABYLON.Mesh.DOUBLESIDE, cap: BABYLON.Mesh.CAP_ALL}, scene);
-    mainBody.convertToFlatShadedMesh();
-    mainBody.position = new BABYLON.Vector3(0, -12, 0)
-
-    const mainMat = new BABYLON.StandardMaterial("mainmat", scene)
-    mainMat.emissiveColor = new BABYLON.Color3(0,0,1)
-
-    mainBody.material = mainMat
-
-
-    //Inputs
-    scene.registerBeforeRender(gameLogic)
-    scene.onKeyboardObservable.add(keyEvent)
-
-    //Inspector
-    debug = (state) => {
-        if (state)
-            scene.debugLayer.show({ embedMode: true });
-        else
-            scene.debugLayer.hide();
-    }
-    window.addEventListener("keydown", (e) => {
-        if (e.key == "r")
-            debug(!scene.debugLayer.isVisible())
-    })
     return scene
-}
-
-//SPS2.updateParticles = (up) => {
-//    console.log(up)
-//    if (up) {
-//        SPS2.particles[selectedParticle].color = wireframeColor
-//        selectedParticle = selectedParticle == SPS2.particles.length - 1 ? 0 : selectedParticle + 1
-//        SPS2.particles[selectedParticle].color = blockColor
-//    }
-//    else {
-//        SPS2.particles[selectedParticle].color = wireframeColor
-//        selectedParticle = selectedParticle == 0 ? 19 : selectedParticle - 1
-//        SPS2.particles[selectedParticle].color = blockColor
-//    }
-//    SPS2.setParticles();
-//    console.log(selectedParticle)
-//}
-//window.addEventListener("mousewheel", (e) => {
-//    SPS2.updateParticles(e.deltaY > 0 ? false : true)
-//})
-
-function keyEvent(e) {
-    switch (e.type) {
-        case BABYLON.KeyboardEventTypes.KEYDOWN:
-            switch (e.event.key) {
-                case "ArrowRight": {
-                    if (!directionQ.includes("right"))
-                        directionQ.push("right")
-                } break
-                case "ArrowLeft": {
-                    if (!directionQ.includes("left"))
-                        directionQ.push("left")
-                } break
-            }
-            break
-        case BABYLON.KeyboardEventTypes.KEYUP:
-            switch (e.event.key) {
-                case "ArrowRight": {
-                    for (let i = 0; i < 2; i++) {
-                        if (directionQ[i] == "right")
-                        directionQ.splice(i, 1)
-                    }
-                } break
-                case "ArrowLeft": {
-                    for (let i = 0; i < 2; i++) {
-                        if (directionQ[i] == "left")
-                        directionQ.splice(i, 1)
-                    }
-                } break
-            }
-            break
-    }
-}
-
-function gameLogic() {
-    let deltaTime = engine.getDeltaTime()
-    let distance = speed * deltaTime
-
-    if (directionQ[0] == "right") {
-        inertia += distance * .1
-    }
-    if (directionQ[0] == "left") {
-        inertia -= distance * .1
-    }
-    mainBody.position.x += inertia;
-    inertia *= 0.95;
 }
 
 // Register a render loop to repeatedly render the scene
@@ -245,5 +297,3 @@ engine.runRenderLoop(function () {
 window.addEventListener("resize", function () {
     engine.resize();
 });
-
-

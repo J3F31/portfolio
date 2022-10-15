@@ -7,30 +7,112 @@
     <title>jeroeyras.com</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <style>
-            body {
-                margin: 0;
-                height: 100vh;
-                width: 100vw;
-                overflow: hidden;
-                touch-action: none;
-                -ms-touch-action: none;
-                user-select: none;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-            }
-            canvas {
-                width: 100%;
-                height: 100%;
-                user-select: none;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-            }
-        </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body id="body">
+<body>
     <canvas class="canvas" id="renderCanvas"></canvas>
-    
+    <div class="header">
+        <input type="checkbox" class="nav-toggle" id="nav-toggle">
+        <div class="navbar">
+            <nav class="navgrid">
+                <a class="t" id="t1" href="#about" onclick="Highlight(this.id)">About</a>
+                <a class="t" id="t2" href="#portfolio" onclick="Highlight(this.id)">Portfolio</a>
+                <a class="t" id="t3" href="#contact" onclick="Highlight(this.id)">Contact</a>
+            </nav>
+        </div>
+        <div class="navcyan" id="navcyan"></div>
+        <div class="navmagenta" id="navmagenta"></div>
+        <div class="navyellow" id="navyellow"></div>
+        <label for="nav-toggle" class="nav-toggle-label" onclick="NavCross()">
+            <span class="nav-span"></span>
+        </label>
+    </div>           
+
+    <div class="about" id="about">
+
+        <!--<div class="test-border">
+            <div class="test">
+          
+            </div>
+        </div>-->
+        
+    </div>
+
+    <div class="portfolio" id="portfolio">
+
+        <section class="games">
+
+            <span class="arrow-left" id="arrow-left-games">&larr;</span>
+            <span class="arrow-right" id="arrow-right-games">&rarr;</span>
+
+            <div class="test-border">
+                <div class="test" id="games">
+                    <div class="featured-project">
+
+                        <img src="assets/Starboarders_title.png" alt="StarBoarders Title" height="30" width="320">
+                        
+                        <video width="320" height="200" controls src="assets/StarBoarders - Trailer.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+        
+                        <button class="play-game" onclick="window.open('https://j3f3.itch.io/starboarders')">Play</button>
+                        
+                    </div>
+        
+                    <div class="game-jam">
+        
+                        <img src="assets/Chained.png" alt="Chained Title" height="50" width="280">
+        
+                        <video width="320" height="200" controls src="assets/Chained Cinematic.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <button class="play-game" onclick="window.open('https://j3f3.itch.io/chained')">Play</button>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div id="dots" class="dots">
+            </div>
+            
+        </section>
+
+    </div>
+
+    <div class="contact" id="contact">
+
+        <!--<div class="chau">
+            <h1>Hasta la vista baby</h1>
+            <img src="./assets/Terminator.png" alt="Terminator">
+        </div>-->
+        
+        <div class="contact-waves">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e4d0ab" fill-opacity="1" 
+                d="M0,0L48,0C96,0,192,0,288,42.7C384,85,480,171,576,186.7C672,203,768,149,864,144C960,139,1056,181,1152,170.7C1248,160,
+                1344,96,1392,64L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,
+                320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+        </div>     
+
+        <div class="contact-icons">
+            
+            <div class="icon"><a href="mailto:jero.eyras@gmail.com" target="_blank"><i class="fas fa-at"></i></a></div>
+                                
+            <div class="icon"><a href="https://www.linkedin.com/in/jero-eyras-34668b151/" target="_blank"><i class="fab fa-linkedin-in"></i></i></a></div>
+                        
+            <div class="icon"><a href="https://github.com/J3F31" target="_blank"><i class="fab fa-github"></i></a></div>
+                        
+            <div class="icon"><a href="https://jeroeyras.wixsite.com/portfolio" target="_blank"><i class="fab fa-wix"></i></a></div>
+        </div>
+
+        
+
+        <!--<div class="contact-mail">
+            <h1>Contact</h4>
+            <a href="mailto:jero.eyras@gmail.com" class="mail">jero.eyras@gmail.com</a>
+        </div>
+        -->
+    </div>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
