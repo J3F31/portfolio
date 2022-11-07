@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jeroeyras.com</title>
+    <link href='https://fonts.googleapis.com/css?family=Fredericka the Great' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">   
 </head>
 <body>
     <canvas class="canvas" id="renderCanvas"></canvas>
@@ -16,7 +17,7 @@
         <div class="navbar">
             <nav class="navgrid">
                 <a class="t" id="t1" href="#about" onclick="Highlight(this.id)">About</a>
-                <a class="t" id="t2" href="#portfolio" onclick="Highlight(this.id)">Portfolio</a>
+                <a class="t" id="t2" href="#portfolio" onclick="Highlight(this.id)">Projects</a>
                 <a class="t" id="t3" href="#contact" onclick="Highlight(this.id)">Contact</a>
             </nav>
         </div>
@@ -30,53 +31,33 @@
 
     <div class="about" id="about">
 
-        <!--<div class="test-border">
-            <div class="test">
-          
+        <div class="container-border">
+            <div class="container">
+              <section class="about-content">
+                <h1>Welcome</h1>
+                <p>My name is Jero;<br>I'm a programmer;<br>originally from Spain;<br>located in the Netherlands;<br>background in game design;</p>
+              </section>
+              <p class="about-cv">
+                CV
+              </p>
             </div>
-        </div>-->
+        </div>
         
     </div>
 
     <div class="portfolio" id="portfolio">
 
-        <!--<section class="games">-->
 
-            <!--<span class="arrow-left" id="arrow-left-games">&larr;</span>
-            <span class="arrow-right" id="arrow-right-games">&rarr;</span>-->
+      <div class="container-border">
+          <div class="container" id="games">
 
-            <div class="container-border">
-                <div class="container" id="games">
-                    <!--<div class="featured-project">
 
-                        <img src="assets/Starboarders_title.png" alt="StarBoarders Title" height="30" width="320">
-                        
-                        <video width="320" height="200" controls src="assets/StarBoarders - Trailer.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-        
-                        <button class="play-game" onclick="window.open('https://j3f3.itch.io/starboarders')">Play</button>
-                        
-                    </div>
-        
-                    <div class="game-jam">
-        
-                        <img src="assets/Chained.png" alt="Chained Title" height="50" width="280">
-        
-                        <video width="320" height="200" controls src="assets/Chained Cinematic.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        
-                        <button class="play-game" onclick="window.open('https://j3f3.itch.io/chained')">Play</button>
-                        
-                    </div>-->
-                </div>
-            </div>
-            
-            <!--<div id="dots" class="dots">-->
-            </div>
-            
-        <!--</section>-->
+              
+            <p class="portfolio-gamejams"></p>
+            <div class="icon"><a href="https://j3f3.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a></div>   
+          </div>
+      </div>
+      
 
     </div>
 
@@ -106,13 +87,6 @@
             <div class="icon"><a href="https://jeroeyras.wixsite.com/portfolio" target="_blank"><i class="fab fa-wix"></i></a></div>
         </div>
 
-        
-
-        <!--<div class="contact-mail">
-            <h1>Contact</h4>
-            <a href="mailto:jero.eyras@gmail.com" class="mail">jero.eyras@gmail.com</a>
-        </div>
-        -->
     </div>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>

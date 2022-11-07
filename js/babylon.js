@@ -18,8 +18,8 @@ function CreateScene () {
   var scene = new BABYLON.Scene(engine);
   scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
     
-  var camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 3, 40, BABYLON.Vector3.Zero(), scene);
-	camera.attachControl(canvas, true);
+  //var camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 3, 40, BABYLON.Vector3.Zero(), scene);
+	//camera.attachControl(canvas, true);
     
   //var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(-1, 0, 0), scene);
 	//light1.intensity = 0.6;
@@ -63,14 +63,22 @@ function CreateScene () {
   mainSquare.position = new BABYLON.Vector3(0, 1, 0);
   mainSquare.material = mat;
 
-  var ground = BABYLON.MeshBuilder.CreateGround("ground", {size:10}, this.scene);
+  //var ground = BABYLON.MeshBuilder.CreateGround("ground", {size:10}, this.scene);
   
   return scene
 }
 
 function CreateCamera() {
-  const camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 10, this.center, this.scene);
+  const camera = new BABYLON.ArcRotateCamera("camera", 0, Math.PI/3, 15, this.center, this.scene);
   camera.attachControl();
+
+  camera.inputs.attached.pointers.buttons = [0,1];
+
+  camera.useAutoRotationBehavior = true;
+  camera.autoRotationBehavior.idleRotationSpeed = .7;
+
+  camera.upperRadiusLimit = 15;
+  camera.lowerRadiusLimit = 15;
 
   return camera
 }
