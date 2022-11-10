@@ -357,7 +357,7 @@ body {
   width: 70%;
 }
 
-.contact p {
+.contact h1 {
   font-size: 3rem;
   text-align: center;
 }
@@ -385,7 +385,7 @@ body {
 .contact span {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .contact span p {
