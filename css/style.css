@@ -256,6 +256,8 @@ body {
 }
 
 .about-cv {
+  text-decoration: none;
+  color: white;
   position: absolute;
   left: 80%;
   top: 60%;
